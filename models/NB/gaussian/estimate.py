@@ -6,7 +6,7 @@ from sklearn.naive_bayes import GaussianNB  # For gaussian Naive Bayes classific
 from sklearn.preprocessing import StandardScaler  # For feature scaling
 
 # Load the data from the CSV file
-weather_data = pd.read_csv(os.path.join("../../../../data", "nghean.csv"))
+weather_data = pd.read_csv(os.path.join("E:\DOAN\TranTienDiep_2020603359\TranTienDIep\data/nghean.csv"))
 print(weather_data)
 
 # Preprocess the data
@@ -50,3 +50,14 @@ test_accuracy = round(accuracy_score(test_labels, predicted_labels), 4) * 100
 
 # Print the accuracy score for the model on the testing set
 print(f'Naive Bayes Gaussian Estimate Prior Accuracy = {test_accuracy}')
+
+from joblib import dump
+
+dump(train_features, 'E:/DOAN/TranTienDiep_2020603359/TranTienDIep/data/X_train.joblib')
+dump(train_labels, 'E:/DOAN/TranTienDiep_2020603359/TranTienDIep/data/y_train.joblib')
+
+# Lưu trữ mô hình Gaussian Naive Bayes
+dump(gaussian_naive_bayes, 'E:/DOAN/TranTienDiep_2020603359/TranTienDIep/data/gaussian_naive_bayes_model.joblib')
+
+# Lưu trữ StandardScaler
+dump(scaler, 'E:/DOAN/TranTienDiep_2020603359/TranTienDIep/data/scaler.joblib')

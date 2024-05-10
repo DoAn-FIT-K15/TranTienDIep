@@ -8,7 +8,7 @@ from sklearn.naive_bayes import GaussianNB  # For Gaussian Naive Bayes classific
 from sklearn.preprocessing import StandardScaler  # For feature scaling
 
 # Load the data from the CSV file
-weather_data = pd.read_csv(os.path.join("../../../../data", "nghean.csv"))
+weather_data = pd.read_csv(os.path.join("E:\DOAN\TranTienDiep_2020603359\TranTienDIep\data/nghean.csv"))
 
 # Preprocess the data
 # Drop columns that are not needed

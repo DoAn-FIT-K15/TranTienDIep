@@ -8,7 +8,7 @@ from sklearn.neighbors import KNeighborsClassifier  # For KNN classification
 from sklearn.preprocessing import StandardScaler  # For feature scaling
 
 # Load the data from the CSV file
-weather_data = pd.read_csv(os.path.join("../../../data", "nghean.csv"))
+weather_data = pd.read_csv(os.path.join("E:\DOAN\TranTienDiep_2020603359\TranTienDIep\data/nghean.csv"))
 
 # Preprocess the data
 # Drop columns that are not needed
@@ -30,20 +30,29 @@ train_features, test_features, train_labels, test_labels = train_test_split(weat
                                                                             test_size=0.2)
 
 # Create the model
-uniform_knn = KNeighborsClassifier(n_neighbors=10)
+weighted_knn = KNeighborsClassifier(n_neighbors=10, weights='distance')
 
 # Use cross-validation to estimate model performance
 # cv=5 specifies 5-fold cross-validation
-scores = cross_val_score(uniform_knn, weather_features, weather_labels, cv=5)
+scores = cross_val_score(weighted_knn, weather_features, weather_labels, cv=5)
 
 # Train the model on the training set
-uniform_knn.fit(train_features, train_labels)
+weighted_knn.fit(train_features, train_labels)
 
 # Make predictions on the testing set
-predicted_labels = uniform_knn.predict(test_features)
+predicted_labels = weighted_knn.predict(test_features)
 
 # Compute the accuracy score for the model on the testing set
 test_accuracy = round(accuracy_score(test_labels, predicted_labels), 4) * 100
 
 # Print the accuracy score for the model on the testing set
-print(f'KNN Uniform K=10 Accuracy = {test_accuracy}')
+print(f'KNN Weighted K=10 Accuracy = {test_accuracy}')
+
+from joblib import dump,load
+
+# Lưu trữ mô hình Gaussian Naive Bayes
+dump(weighted_knn, 'E:\DOAN\TranTienDiep_2020603359\TranTienDIep\data/weighted_knn_model.joblib')
+
+# Lưu trữ StandardScaler
+dump(scaler, 'E:\DOAN\TranTienDiep_2020603359\TranTienDIep\data/scaler.joblib')
+
