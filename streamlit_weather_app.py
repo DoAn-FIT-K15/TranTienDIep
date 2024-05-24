@@ -64,9 +64,15 @@ def main():
         elif model_choice_csv == 'Fusion':
             predictions = new_fusion_model(X_train, y_train, scaled_features)
         data['Prediction'] = predictions
-        st.dataframe(data[['name', 'datetime', 'Prediction', 'icon']])
+
+        # correct_predictions = (data['Prediction'] == data['icon']).sum()
+        # total_predictions = len(data)
+        # accuracy = (correct_predictions / total_predictions) * 100
+
+        st.dataframe(data[['name', 'datetime', 'Prediction']])
         data.to_csv('prediction_results.csv', index=False)
-        st.success('Predicted data has been saved into "prediction_results.csv"')
+        st.success(f'Predicted data has been saved into "prediction_results.csv"')
+        # st.info(f'Accuracy of the predictions: {accuracy:.2f}%')
 
     # Sidebar for fetching weather data
     fetch_weather_button = False
@@ -91,7 +97,7 @@ def main():
             # st.markdown(f"**Feels max:** {weather_data['currentConditions']['feelslikemax']} °C")
             # st.markdown(f"**Feels min:** {weather_data['currentConditions']['feelslikemin']} °C")
             st.markdown(f"**Feels Like:** {weather_data['currentConditions']['feelslike']} °C")
-            st.markdown(f"**humidity:** {weather_data['currentConditions']['humidity']}")
+            st.markdown(f"**humidity:** {weather_data['currentConditions']['humidity']} %")
             st.markdown(f"**precip:** {weather_data['currentConditions']['precip']}")
             st.markdown(f"**windgust:** {weather_data['currentConditions']['windgust']}")
             st.markdown(f"**windspeed:** {weather_data['currentConditions']['windspeed']}")
